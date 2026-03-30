@@ -80,10 +80,9 @@ export default function App() {
   const [view, setView] = useState<'home' | 'match'>('home');
 
   useEffect(() => {
-    const parts = window.location.pathname.split('/').filter(Boolean);
-    const id = parts.find(p => p.length >= 5);
-    if (id) {
-      setMatchId(id);
+    const path = window.location.pathname.split('/')[1];
+    if (path && path.length >= 5) {
+      setMatchId(path);
       setView('match');
     }
   }, []);
@@ -104,7 +103,6 @@ export default function App() {
     };
 
     await setDoc(doc(db, 'matches', id), matchData);
-    
     window.history.pushState({}, '', `/${id}`);
     setMatchId(id);
     setView('match');
@@ -150,6 +148,7 @@ export default function App() {
         </main>
 
         <footer className="mt-24 pt-8 border-t border-zinc-900 text-center text-zinc-600 text-sm">
+          <p className="mb-2">Made By <span className="text-orange-600 font-bold">Kiên Chaos</span> from <span className="italic">D6 community</span></p>
           <p>© 2026 Warhammer 40K Sealed List Reveal. Dành cho cộng đồng Wargaming.</p>
         </footer>
       </div>
