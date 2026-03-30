@@ -1,0 +1,50 @@
+{
+  "entities": {
+    "Match": {
+      "title": "Match",
+      "description": "A Warhammer 40K match with two players and their army lists.",
+      "type": "object",
+      "properties": {
+        "p1": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "submitted": { "type": "boolean" },
+            "submittedAt": { "type": "string", "format": "date-time" }
+          }
+        },
+        "p2": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "submitted": { "type": "boolean" },
+            "submittedAt": { "type": "string", "format": "date-time" }
+          }
+        },
+        "revealed": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "expiresAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["revealed", "createdAt", "expiresAt"]
+    },
+    "List": {
+      "title": "Army List",
+      "description": "The content of a player's army list.",
+      "type": "object",
+      "properties": {
+        "content": { "type": "string" }
+      },
+      "required": ["content"]
+    }
+  },
+  "firestore": {
+    "/matches/{matchId}": {
+      "schema": "Match",
+      "description": "Metadata for a match."
+    },
+    "/matches/{matchId}/lists/{playerId}": {
+      "schema": "List",
+      "description": "The actual army list content, restricted until reveal."
+    }
+  }
+}

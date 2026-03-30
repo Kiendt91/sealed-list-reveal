@@ -1,0 +1,40 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // ===============================================================
+    // Matches Collection
+    // ===============================================================
+    match /matches/{matchId} {
+      // Anyone can read match metadata (names, submitted status)
+      allow read: if true;
+      
+      // Anyone can create a match
+      allow create: if true;
+      
+      // Anyone can update a match (to join or mark as submitted)
+      // In a real app, we'd use auth, but the user requested no-auth.
+      allow update: if true;
+
+      // ===============================================================
+      // Lists Subcollection
+      // ===============================================================
+      match /lists/{playerId} {
+        // CRITICAL: Only allow reading lists if the match is revealed
+        allow read: if get(/databases/$(database)/documents/matches/$(matchId)).data.revealed == true;
+        
+        // Anyone can create a list (submit)
+        allow create: if true;
+        
+        // No updates allowed after submission
+        allow update: if false;
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "Warhammer 40K Sealed List Reveal",
+  "description": "Công cụ bảo mật danh sách quân đội Warhammer 40K. Chỉ công bố danh sách khi cả hai người chơi đã nộp, ngăn chặn tình trạng counter-listing.",
+  "requestFramePermissions": []
+}
