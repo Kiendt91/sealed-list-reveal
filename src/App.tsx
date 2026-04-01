@@ -211,7 +211,7 @@ export default function App() {
   );
 }
 
-function PublicMatches({ onSelectMatch }: { onSelectMatch: (id: string) => void }) {
+function PublicMatches({ onSelectMatch, t }: { onSelectMatch: (id: string) => void, t: any }) {
   const [matches, setMatches] = useState<Match[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -247,7 +247,7 @@ function PublicMatches({ onSelectMatch }: { onSelectMatch: (id: string) => void 
     <div className="mt-12 space-y-6">
       <div className="flex items-center gap-2 mb-4">
         <History className="w-5 h-5 text-orange-500" />
-        <h3 className="text-lg font-bold uppercase tracking-wider">Trận Đấu Đã Reveal</h3>
+        <h3 className="text-lg font-bold uppercase tracking-wider">{t('public_matches')}</h3>
       </div>
       
       <div className="grid gap-4">
@@ -289,9 +289,170 @@ function PublicMatches({ onSelectMatch }: { onSelectMatch: (id: string) => void 
   );
 }
 
+// --- Translations ---
+const TRANSLATIONS = {
+  vi: {
+    title_reveal: "Reveal",
+    tagline: "Bảo mật danh sách quân đội Warhammer 40K. Công bằng tuyệt đối cho mọi trận đấu.",
+    footer_made_by: "Phát triển bởi",
+    footer_community: "từ cộng đồng",
+    footer_copy: "Dành cho cộng đồng Wargaming.",
+    home_create_title: "Tạo Trận Đấu Mới",
+    home_create_desc: "Nhận mã phòng và QR để chia sẻ với đối thủ ngay lập tức.",
+    home_create_btn: "Bắt Đầu Ngay",
+    home_join_title: "Tham Gia Trận Đấu",
+    home_join_desc: "Nhập mã phòng được chia sẻ bởi đối thủ của bạn.",
+    home_join_placeholder: "MÃ PHÒNG",
+    feat_secure: "Bảo Mật",
+    feat_secure_desc: "List được mã hóa và niêm phong.",
+    feat_fair: "Công Bằng",
+    feat_fair_desc: "Chỉ hiện khi cả hai đã nộp xong.",
+    feat_fast: "Nhanh Chóng",
+    feat_fast_desc: "Không cần đăng ký tài khoản.",
+    match_loading: "Đang tải thông tin trận đấu...",
+    match_error_title: "Lỗi",
+    match_error_not_found: "Trận đấu không tồn tại hoặc đã hết hạn.",
+    match_back_home: "Quay Lại Trang Chủ",
+    match_back: "Quay Lại",
+    lobby_match_code: "Mã Trận",
+    lobby_share_desc: "Chia sẻ mã này hoặc QR code cho đối thủ của bạn.",
+    lobby_copy_link: "Sao Chép Link",
+    lobby_share_btn: "Chia Sẻ Link",
+    lobby_slot: "Slot",
+    lobby_occupied: "ĐÃ CHIẾM",
+    lobby_enter_slot: "VÀO SLOT",
+    submit_title: "Niêm Phong Danh Sách",
+    submit_name_label: "Tên của bạn",
+    submit_name_placeholder: "Vd: Ultramarines Commander",
+    submit_list_label: "Army Lists (Bạn có thể nộp nhiều list)",
+    submit_list_add: "Thêm List",
+    submit_list_delete: "Xóa",
+    submit_list_placeholder: "Dán danh sách quân đội của bạn tại đây...",
+    submit_note: "Lưu ý: Sau khi nộp, bạn sẽ không thể chỉnh sửa danh sách. Danh sách chỉ được hiển thị khi đối thủ của bạn cũng đã nộp xong. Nếu nộp nhiều list, hệ thống sẽ chọn ngẫu nhiên 1 list để thi đấu.",
+    submit_btn: "Niêm Phong & Nộp",
+    waiting_title: "Đang Chờ Đối Thủ",
+    waiting_desc: "Bạn đã nộp list thành công. Hệ thống đang chờ đối thủ hoàn tất.",
+    player_you: "BẠN",
+    player_opponent: "ĐỐI THỦ",
+    status_submitted: "ĐÃ NỘP",
+    status_typing: "ĐANG NHẬP...",
+    your_lists: "Danh sách của bạn",
+    reveal_status: "ĐÃ CÔNG BỐ",
+    reveal_status_finished: "TRẬN ĐẤU ĐÃ KẾT THÚC",
+    reveal_title: "Trận Đấu Bắt Đầu!",
+    reveal_download: "Tải Xuống Cả Hai List (.txt)",
+    reveal_finish_btn: "Kết Thúc Trận Đấu & Khóa Điểm",
+    reveal_wish_fair: "Chúc các bạn có một trận đấu công bằng!",
+    reveal_thanks: "Cảm ơn đã sử dụng Sealed List Reveal.",
+    reveal_win: "chúc mừng chiên thắng!",
+    reveal_draw: "Trận đấu kết thúc với tỉ số hòa!",
+    reveal_final_score: "Tỉ số chung cuộc",
+    card_submitted_at: "Nộp lúc",
+    card_score: "ĐIỂM SỐ",
+    card_loading_content: "Đang tải nội dung...",
+    card_player_submitted: "Người chơi đã nộp",
+    card_choose_list: "Hãy chọn một list để bắt đầu",
+    card_or: "HOẶC",
+    card_random: "CHỌN NGẪU NHIÊN",
+    card_selected_list: "Đã chọn List",
+    card_change_list: "Đổi List",
+    dashboard_title: "Bảng Điều Khiển Trận Đấu",
+    dashboard_sub: "Công cụ hỗ trợ thời gian thực",
+    dashboard_mission: "Chưa tạo mission",
+    dashboard_roll_draw: "Hòa! Hãy roll lại.",
+    dashboard_quick_roll: "Roll nhanh kết quả",
+    public_matches: "Trận Đấu Đã Reveal",
+    common_loading: "Đang tải...",
+  },
+  en: {
+    title_reveal: "Reveal",
+    tagline: "Secure your Warhammer 40K army lists. Absolute fairness for every match.",
+    footer_made_by: "Made By",
+    footer_community: "from",
+    footer_copy: "For the Wargaming community.",
+    home_create_title: "Create New Match",
+    home_create_desc: "Get a room code and QR to share with your opponent instantly.",
+    home_create_btn: "Start Now",
+    home_join_title: "Join Match",
+    home_join_desc: "Enter the room code shared by your opponent.",
+    home_join_placeholder: "ROOM CODE",
+    feat_secure: "Secure",
+    feat_secure_desc: "Lists are encrypted and sealed.",
+    feat_fair: "Fair Play",
+    feat_fair_desc: "Only revealed when both have submitted.",
+    feat_fast: "Fast",
+    feat_fast_desc: "No account registration required.",
+    match_loading: "Loading match data...",
+    match_error_title: "Error",
+    match_error_not_found: "Match not found or has expired.",
+    match_back_home: "Back to Home",
+    match_back: "Back",
+    lobby_match_code: "Match Code",
+    lobby_share_desc: "Share this code or QR code with your opponent.",
+    lobby_copy_link: "Copy Link",
+    lobby_share_btn: "Share Link",
+    lobby_slot: "Slot",
+    lobby_occupied: "OCCUPIED",
+    lobby_enter_slot: "ENTER SLOT",
+    submit_title: "Seal Army List",
+    submit_name_label: "Your Name",
+    submit_name_placeholder: "e.g. Ultramarines Commander",
+    submit_list_label: "Army Lists (You can submit multiple)",
+    submit_list_add: "Add List",
+    submit_list_delete: "Remove",
+    submit_list_placeholder: "Paste your army list here...",
+    submit_note: "Note: You cannot edit your list after submission. It will only be revealed when your opponent also submits. If multiple lists are submitted, one will be chosen randomly.",
+    submit_btn: "Seal & Submit",
+    waiting_title: "Waiting for Opponent",
+    waiting_desc: "You have submitted successfully. Waiting for your opponent to complete.",
+    player_you: "YOU",
+    player_opponent: "OPPONENT",
+    status_submitted: "SUBMITTED",
+    status_typing: "ENTERING...",
+    your_lists: "Your Lists",
+    reveal_status: "REVEALED",
+    reveal_status_finished: "MATCH FINISHED",
+    reveal_title: "Let the Battle Begin!",
+    reveal_download: "Download Both Lists (.txt)",
+    reveal_finish_btn: "Finish Match & Lock Scores",
+    reveal_wish_fair: "Have a fair and glorious battle!",
+    reveal_thanks: "Thanks for using Sealed List Reveal.",
+    reveal_win: "Congratulations on your victory!",
+    reveal_draw: "The match ended in a draw!",
+    reveal_final_score: "Final Score",
+    card_submitted_at: "Submitted at",
+    card_score: "SCORE",
+    card_loading_content: "Loading content...",
+    card_player_submitted: "Player submitted",
+    card_choose_list: "Choose a list to begin",
+    card_or: "OR",
+    card_random: "RANDOM SELECTION",
+    card_selected_list: "Selected List",
+    card_change_list: "Change List",
+    dashboard_title: "Match Dashboard",
+    dashboard_sub: "Real-time support tools",
+    dashboard_mission: "No mission generated",
+    dashboard_roll_draw: "Draw! Roll again.",
+    dashboard_quick_roll: "Quick roll results",
+    public_matches: "Revealed Matches",
+    common_loading: "Loading...",
+  }
+};
+
 function AppContent() {
   const [matchId, setMatchId] = useState<string | null>(null);
   const [view, setView] = useState<'home' | 'match'>('home');
+
+  const [lang, setLang] = useState<'vi' | 'en'>(() => {
+    const saved = localStorage.getItem('slr_lang');
+    return (saved === 'en' || saved === 'vi') ? saved : 'vi';
+  });
+
+  const t = (key: keyof typeof TRANSLATIONS.vi) => TRANSLATIONS[lang][key] || key;
+
+  useEffect(() => {
+    localStorage.setItem('slr_lang', lang);
+  }, [lang]);
 
   useEffect(() => {
     const path = window.location.pathname.split('/')[1];
@@ -330,6 +491,22 @@ function AppContent() {
       </div>
 
       <div className="relative max-w-4xl mx-auto px-4 py-12">
+        {/* Language Switcher */}
+        <div className="absolute top-4 right-4 flex gap-1 bg-zinc-900/50 p-1 rounded-lg border border-zinc-800">
+          <button 
+            onClick={() => setLang('vi')}
+            className={cn("px-2 py-1 text-[10px] font-bold rounded transition-colors", lang === 'vi' ? "bg-orange-600 text-white" : "text-zinc-500 hover:text-zinc-300")}
+          >
+            VN
+          </button>
+          <button 
+            onClick={() => setLang('en')}
+            className={cn("px-2 py-1 text-[10px] font-bold rounded transition-colors", lang === 'en' ? "bg-orange-600 text-white" : "text-zinc-500 hover:text-zinc-300")}
+          >
+            EN
+          </button>
+        </div>
+
         <header className="flex flex-col items-center mb-16 text-center">
           <motion.div 
             initial={{ scale: 0.8, opacity: 0 }}
@@ -339,10 +516,10 @@ function AppContent() {
             <ShieldCheck className="w-10 h-10 text-white" />
           </motion.div>
           <h1 className="text-4xl font-black tracking-tighter uppercase italic mb-2">
-            Sealed List <span className="text-orange-600">Reveal</span>
+            Sealed List <span className="text-orange-600">{t('title_reveal')}</span>
           </h1>
           <p className="text-zinc-500 max-w-sm">
-            Bảo mật danh sách quân đội Warhammer 40K. Công bằng tuyệt đối cho mọi trận đấu.
+            {t('tagline')}
           </p>
         </header>
 
@@ -357,20 +534,21 @@ function AppContent() {
                   setMatchId(id);
                   setView('match');
                 }} 
+                t={t}
               />
             ) : (
               <MatchView key="match" id={matchId!} onBack={() => {
                 window.history.pushState({}, '', '/');
                 setView('home');
                 setMatchId(null);
-              }} />
+              }} t={t} />
             )}
           </AnimatePresence>
         </main>
 
         <footer className="mt-24 pt-8 border-t border-zinc-900 text-center text-zinc-600 text-sm">
-          <p className="mb-2">Made By <span className="text-orange-600 font-bold">Kiên Chaos</span> from <span className="italic">D6 community</span></p>
-          <p>© 2026 Warhammer 40K Sealed List Reveal. Dành cho cộng đồng Wargaming.</p>
+          <p className="mb-2">{t('footer_made_by')} <span className="text-orange-600 font-bold">Kiên Chaos</span> {t('footer_community')} <span className="italic">D6 community</span></p>
+          <p>© 2026 Warhammer 40K Sealed List Reveal. {t('footer_copy')}</p>
         </footer>
       </div>
     </div>
@@ -379,7 +557,7 @@ function AppContent() {
 
 // --- Views ---
 
-function HomeView({ onCreate, onSelectMatch }: { onCreate: () => void, onSelectMatch: (id: string) => void, key?: string }) {
+function HomeView({ onCreate, onSelectMatch, t }: { onCreate: () => void, onSelectMatch: (id: string) => void, t: any, key?: string }) {
   const [matchCode, setMatchCode] = useState('');
 
   const handleJoin = (e: React.FormEvent) => {
@@ -399,21 +577,21 @@ function HomeView({ onCreate, onSelectMatch }: { onCreate: () => void, onSelectM
       <div className="grid md:grid-cols-2 gap-6">
         <Card className="flex flex-col items-center text-center justify-center py-12 border-orange-600/20 bg-orange-600/5">
           <Plus className="w-12 h-12 text-orange-600 mb-4" />
-          <h2 className="text-xl font-bold mb-2">Tạo Trận Đấu Mới</h2>
-          <p className="text-zinc-500 text-sm mb-6">Nhận mã phòng và QR để chia sẻ với đối thủ ngay lập tức.</p>
+          <h2 className="text-xl font-bold mb-2">{t('home_create_title')}</h2>
+          <p className="text-zinc-500 text-sm mb-6">{t('home_create_desc')}</p>
           <Button onClick={onCreate} className="w-full max-w-[200px]">
-            Bắt Đầu Ngay
+            {t('home_create_btn')}
           </Button>
         </Card>
 
         <Card className="flex flex-col items-center text-center justify-center py-12">
           <History className="w-12 h-12 text-zinc-600 mb-4" />
-          <h2 className="text-xl font-bold mb-2">Tham Gia Trận Đấu</h2>
-          <p className="text-zinc-500 text-sm mb-6">Nhập mã phòng được chia sẻ bởi đối thủ của bạn.</p>
+          <h2 className="text-xl font-bold mb-2">{t('home_join_title')}</h2>
+          <p className="text-zinc-500 text-sm mb-6">{t('home_join_desc')}</p>
           <form onSubmit={handleJoin} className="w-full max-w-[240px] flex gap-2">
             <input 
               type="text" 
-              placeholder="MÃ PHÒNG"
+              placeholder={t('home_join_placeholder')}
               value={matchCode}
               onChange={(e) => setMatchCode(e.target.value)}
               className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 w-full text-center font-mono uppercase focus:outline-none focus:border-orange-600 transition-colors"
@@ -427,9 +605,9 @@ function HomeView({ onCreate, onSelectMatch }: { onCreate: () => void, onSelectM
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
-          { icon: Lock, title: "Bảo Mật", desc: "List được mã hóa và niêm phong." },
-          { icon: Eye, title: "Công Bằng", desc: "Chỉ hiện khi cả hai đã nộp xong." },
-          { icon: Clock, title: "Nhanh Chóng", desc: "Không cần đăng ký tài khoản." }
+          { icon: Lock, title: t('feat_secure'), desc: t('feat_secure_desc') },
+          { icon: Eye, title: t('feat_fair'), desc: t('feat_fair_desc') },
+          { icon: Clock, title: t('feat_fast'), desc: t('feat_fast_desc') }
         ].map((item, i) => (
           <div key={i} className="p-4 rounded-xl border border-zinc-900 bg-zinc-900/20 flex flex-col items-center text-center">
             <item.icon className="w-6 h-6 text-orange-600/60 mb-2" />
@@ -439,12 +617,12 @@ function HomeView({ onCreate, onSelectMatch }: { onCreate: () => void, onSelectM
         ))}
       </div>
 
-      <PublicMatches onSelectMatch={onSelectMatch} />
+      <PublicMatches onSelectMatch={onSelectMatch} t={t} />
     </motion.div>
   );
 }
 
-function MatchView({ id, onBack }: { id: string, onBack: () => void, key?: string }) {
+function MatchView({ id, onBack, t }: { id: string, onBack: () => void, t: any, key?: string }) {
   const [match, setMatch] = useState<Match | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -466,7 +644,7 @@ function MatchView({ id, onBack }: { id: string, onBack: () => void, key?: strin
         if (data.p2Score !== undefined) setP2Score(data.p2Score);
         setLoading(false);
       } else {
-        setError('Trận đấu không tồn tại hoặc đã hết hạn.');
+        setError(t('match_error_not_found'));
         setLoading(false);
       }
     }, (error) => {
@@ -582,16 +760,16 @@ function MatchView({ id, onBack }: { id: string, onBack: () => void, key?: strin
   if (loading) return (
     <div className="flex flex-col items-center justify-center py-20">
       <Loader2 className="w-10 h-10 animate-spin text-orange-600 mb-4" />
-      <p className="text-zinc-500">Đang tải thông tin trận đấu...</p>
+      <p className="text-zinc-500">{t('match_loading')}</p>
     </div>
   );
 
   if (error) return (
     <div className="text-center py-20">
       <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-      <h2 className="text-xl font-bold mb-2">Lỗi</h2>
+      <h2 className="text-xl font-bold mb-2">{t('match_error_title')}</h2>
       <p className="text-zinc-500 mb-6">{error}</p>
-      <Button onClick={onBack} variant="outline">Quay Lại Trang Chủ</Button>
+      <Button onClick={onBack} variant="outline">{t('match_back_home')}</Button>
     </div>
   );
 
@@ -614,7 +792,7 @@ function MatchView({ id, onBack }: { id: string, onBack: () => void, key?: strin
     >
       <div className="flex items-center justify-between mb-4">
         <Button onClick={onBack} variant="ghost" className="text-xs">
-          <ChevronRight className="w-4 h-4 rotate-180" /> Quay Lại
+          <ChevronRight className="w-4 h-4 rotate-180" /> {t('match_back')}
         </Button>
         <div className="flex items-center gap-2 bg-zinc-900 px-3 py-1 rounded-full border border-zinc-800">
           <div className={cn("w-2 h-2 rounded-full", isRevealed ? "bg-green-500" : "bg-orange-500 animate-pulse")} />
@@ -630,10 +808,10 @@ function MatchView({ id, onBack }: { id: string, onBack: () => void, key?: strin
 
       <AnimatePresence mode="wait">
         {phase === 'lobby' && (
-          <LobbyView key="lobby" id={id} match={match!} onJoin={(slot) => setMySlot(slot)} />
+          <LobbyView key="lobby" id={id} match={match!} onJoin={(slot) => setMySlot(slot)} t={t} />
         )}
         {phase === 'submit' && (
-          <SubmitForm key="submit" slot={mySlot!} onSubmit={handleSubmit} isLoading={submitting} />
+          <SubmitForm key="submit" slot={mySlot!} onSubmit={handleSubmit} isLoading={submitting} t={t} />
         )}
         {phase === 'waiting' && (
           <WaitingView 
@@ -644,6 +822,7 @@ function MatchView({ id, onBack }: { id: string, onBack: () => void, key?: strin
             selectedIndex={mySlot === 'p1' ? p1SelectedIndex : p2SelectedIndex}
             onRandomize={() => randomizeList(mySlot!)}
             onSelectIndex={(idx) => selectList(mySlot!, idx)}
+            t={t}
           />
         )}
         {phase === 'reveal' && (
@@ -660,6 +839,7 @@ function MatchView({ id, onBack }: { id: string, onBack: () => void, key?: strin
             setP1Score={setP1Score}
             p2Score={p2Score}
             setP2Score={setP2Score}
+            t={t}
           />
         )}
       </AnimatePresence>
@@ -669,7 +849,7 @@ function MatchView({ id, onBack }: { id: string, onBack: () => void, key?: strin
 
 // --- Sub-Views ---
 
-function LobbyView({ id, match, onJoin }: { id: string, match: Match, onJoin: (slot: 'p1' | 'p2') => void, key?: string }) {
+function LobbyView({ id, match, onJoin, t }: { id: string, match: Match, onJoin: (slot: 'p1' | 'p2') => void, t: any, key?: string }) {
   const url = `${window.location.origin}/${id}`;
   const [copied, setCopied] = useState(false);
 
@@ -685,8 +865,8 @@ function LobbyView({ id, match, onJoin }: { id: string, match: Match, onJoin: (s
         <div className="bg-white p-4 rounded-xl inline-block mb-6">
           <QRCodeSVG value={url} size={160} />
         </div>
-        <h2 className="text-2xl font-bold mb-2">Mã Trận: {id}</h2>
-        <p className="text-zinc-500 text-sm mb-8">Chia sẻ mã này hoặc QR code cho đối thủ của bạn.</p>
+        <h2 className="text-2xl font-bold mb-2">{t('lobby_match_code')}: {id}</h2>
+        <p className="text-zinc-500 text-sm mb-8">{t('lobby_share_desc')}</p>
         
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <div className="flex items-center gap-2 bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2 text-sm font-mono overflow-hidden">
@@ -696,7 +876,7 @@ function LobbyView({ id, match, onJoin }: { id: string, match: Match, onJoin: (s
             </button>
           </div>
           <Button onClick={copyLink} variant="primary">
-            <Share2 className="w-4 h-4" /> Chia Sẻ Link
+            <Share2 className="w-4 h-4" /> {t('lobby_share_btn')}
           </Button>
         </div>
       </Card>
@@ -708,8 +888,8 @@ function LobbyView({ id, match, onJoin }: { id: string, match: Match, onJoin: (s
           disabled={match.p1.submitted}
           className="h-24 flex-col"
         >
-          <span className="text-xs text-zinc-500 uppercase tracking-widest">Slot 1</span>
-          <span className="text-lg font-bold">{match.p1.submitted ? 'ĐÃ CHIẾM' : 'VÀO SLOT 1'}</span>
+          <span className="text-xs text-zinc-500 uppercase tracking-widest">{t('lobby_slot')} 1</span>
+          <span className="text-lg font-bold">{match.p1.submitted ? t('lobby_occupied') : `${t('lobby_enter_slot')} 1`}</span>
         </Button>
         <Button 
           onClick={() => onJoin('p2')} 
@@ -717,15 +897,15 @@ function LobbyView({ id, match, onJoin }: { id: string, match: Match, onJoin: (s
           disabled={match.p2.submitted}
           className="h-24 flex-col"
         >
-          <span className="text-xs text-zinc-500 uppercase tracking-widest">Slot 2</span>
-          <span className="text-lg font-bold">{match.p2.submitted ? 'ĐÃ CHIẾM' : 'VÀO SLOT 2'}</span>
+          <span className="text-xs text-zinc-500 uppercase tracking-widest">{t('lobby_slot')} 2</span>
+          <span className="text-lg font-bold">{match.p2.submitted ? t('lobby_occupied') : `${t('lobby_enter_slot')} 2`}</span>
         </Button>
       </div>
     </motion.div>
   );
 }
 
-function SubmitForm({ slot, onSubmit, isLoading }: { slot: 'p1' | 'p2', onSubmit: (name: string, lists: string[]) => void, isLoading: boolean, key?: string }) {
+function SubmitForm({ slot, onSubmit, isLoading, t }: { slot: 'p1' | 'p2', onSubmit: (name: string, lists: string[]) => void, isLoading: boolean, t: any, key?: string }) {
   const [name, setName] = useState('');
   const [lists, setLists] = useState<string[]>(['']);
 
@@ -753,18 +933,18 @@ function SubmitForm({ slot, onSubmit, isLoading }: { slot: 'p1' | 'p2', onSubmit
             <Lock className="w-5 h-5 text-orange-600" />
           </div>
           <div>
-            <h2 className="text-xl font-bold">Niêm Phong Danh Sách</h2>
-            <p className="text-xs text-zinc-500 uppercase tracking-widest">Bạn đang ở Slot {slot === 'p1' ? '1' : '2'}</p>
+            <h2 className="text-xl font-bold">{t('submit_title')}</h2>
+            <p className="text-xs text-zinc-500 uppercase tracking-widest">{t('lobby_slot')} {slot === 'p1' ? '1' : '2'}</p>
           </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-zinc-400">Tên của bạn</label>
+            <label className="text-sm font-medium text-zinc-400">{t('submit_name_label')}</label>
             <input 
               required
               type="text" 
-              placeholder="Vd: Ultramarines Commander"
+              placeholder={t('submit_name_placeholder')}
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 focus:outline-none focus:border-orange-600 transition-colors"
@@ -773,13 +953,13 @@ function SubmitForm({ slot, onSubmit, isLoading }: { slot: 'p1' | 'p2', onSubmit
 
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-medium text-zinc-400">Army Lists (Bạn có thể nộp nhiều list)</label>
+              <label className="text-sm font-medium text-zinc-400">{t('submit_list_label')}</label>
               <button 
                 type="button" 
                 onClick={addList}
                 className="text-xs text-orange-500 hover:text-orange-400 font-bold uppercase flex items-center gap-1"
               >
-                <Plus className="w-3 h-3" /> Thêm List
+                <Plus className="w-3 h-3" /> {t('submit_list_add')}
               </button>
             </div>
             
@@ -793,13 +973,13 @@ function SubmitForm({ slot, onSubmit, isLoading }: { slot: 'p1' | 'p2', onSubmit
                       onClick={() => removeList(idx)}
                       className="text-[10px] text-red-500 hover:text-red-400 font-bold uppercase opacity-0 group-hover:opacity-100 transition-opacity"
                     >
-                      Xóa
+                      {t('submit_list_delete')}
                     </button>
                   )}
                 </div>
                 <textarea 
                   required
-                  placeholder="Dán danh sách quân đội của bạn tại đây..."
+                  placeholder={t('submit_list_placeholder')}
                   value={list}
                   onChange={(e) => updateList(idx, e.target.value)}
                   className="w-full h-48 bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 font-mono text-sm focus:outline-none focus:border-orange-600 transition-colors resize-none"
@@ -811,12 +991,12 @@ function SubmitForm({ slot, onSubmit, isLoading }: { slot: 'p1' | 'p2', onSubmit
           <div className="p-4 bg-orange-600/10 border border-orange-600/20 rounded-lg flex gap-3">
             <AlertCircle className="w-5 h-5 text-orange-600 shrink-0" />
             <p className="text-xs text-orange-200/70">
-              Lưu ý: Sau khi nộp, bạn sẽ không thể chỉnh sửa danh sách. Danh sách chỉ được hiển thị khi đối thủ của bạn cũng đã nộp xong. Nếu nộp nhiều list, hệ thống sẽ chọn ngẫu nhiên 1 list để thi đấu.
+              {t('submit_note')}
             </p>
           </div>
 
           <Button type="submit" className="w-full py-4 text-lg" isLoading={isLoading}>
-            Niêm Phong & Nộp {lists.length > 1 ? `${lists.length} Lists` : 'List'}
+            {t('submit_btn')} {lists.length > 1 ? `(${lists.length} Lists)` : ''}
           </Button>
         </form>
       </Card>
@@ -830,7 +1010,8 @@ function WaitingView({
   lists, 
   selectedIndex, 
   onRandomize,
-  onSelectIndex
+  onSelectIndex,
+  t
 }: { 
   match: Match, 
   mySlot: 'p1' | 'p2', 
@@ -838,6 +1019,7 @@ function WaitingView({
   selectedIndex: number | null, 
   onRandomize: () => void,
   onSelectIndex: (idx: number) => void,
+  t: any,
   key?: string 
 }) {
   const otherSlot = mySlot === 'p1' ? 'p2' : 'p1';
@@ -850,14 +1032,14 @@ function WaitingView({
           <Clock className="w-10 h-10 text-zinc-500 animate-pulse" />
           <div className="absolute inset-0 border-4 border-orange-600 border-t-transparent rounded-full animate-spin" />
         </div>
-        <h2 className="text-2xl font-bold mb-2">Đang Chờ Đối Thủ</h2>
-        <p className="text-zinc-500 mb-8">Bạn đã nộp list thành công. Hệ thống đang chờ đối thủ hoàn tất.</p>
+        <h2 className="text-2xl font-bold mb-2">{t('waiting_title')}</h2>
+        <p className="text-zinc-500 mb-8">{t('waiting_desc')}</p>
 
         <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
           <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20 flex flex-col items-center">
             <CheckCircle2 className="w-6 h-6 text-green-500 mb-2" />
-            <span className="text-xs font-bold uppercase">BẠN</span>
-            <span className="text-[10px] text-green-500/70 uppercase">ĐÃ NỘP</span>
+            <span className="text-xs font-bold uppercase">{t('player_you')}</span>
+            <span className="text-[10px] text-green-500/70 uppercase">{t('status_submitted')}</span>
           </div>
           <div className={cn(
             "p-4 rounded-xl flex flex-col items-center transition-colors border",
@@ -868,16 +1050,16 @@ function WaitingView({
             ) : (
               <Loader2 className="w-6 h-6 text-zinc-500 animate-spin mb-2" />
             )}
-            <span className="text-xs font-bold uppercase">ĐỐI THỦ</span>
+            <span className="text-xs font-bold uppercase">{t('player_opponent')}</span>
             <span className={cn("text-[10px] uppercase", isOtherSubmitted ? "text-green-500/70" : "text-zinc-500")}>
-              {isOtherSubmitted ? 'ĐÃ NỘP' : 'ĐANG NHẬP...'}
+              {isOtherSubmitted ? t('status_submitted') : t('status_typing')}
             </span>
           </div>
         </div>
       </Card>
 
       <div className="max-w-md mx-auto">
-        <h3 className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-4 text-center">Danh sách của bạn</h3>
+        <h3 className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-4 text-center">{t('your_lists')}</h3>
         <PlayerListCard 
           name={match[mySlot].name} 
           lists={lists} 
@@ -887,6 +1069,7 @@ function WaitingView({
           slot={mySlot === 'p1' ? 'SLOT 1' : 'SLOT 2'} 
           submittedAt={match[mySlot].submittedAt} 
           isRevealed={false}
+          t={t}
         />
       </div>
     </motion.div>
@@ -899,7 +1082,7 @@ const MISSIONS = {
   rules: ["Chilling Rain", "Hidden Supplies", "Minefields", "Scrambler Fields", "Vox-static", "Inspired Leadership"]
 };
 
-function GameDashboard({ match }: { match: Match }) {
+function GameDashboard({ match, t }: { match: Match, t: any }) {
   const [isUpdating, setIsUpdating] = useState(false);
   const [lastRoll, setLastRoll] = useState<string | null>(null);
   
@@ -942,8 +1125,8 @@ function GameDashboard({ match }: { match: Match }) {
             <Gamepad2 className="w-5 h-5 text-orange-600" />
           </div>
           <div>
-            <h3 className="font-bold text-lg">Bảng Điều Khiển Trận Đấu</h3>
-            <p className="text-xs text-zinc-500 uppercase tracking-widest">Công cụ hỗ trợ thời gian thực</p>
+            <h3 className="font-bold text-lg">{t('dashboard_title')}</h3>
+            <p className="text-xs text-zinc-500 uppercase tracking-widest">{t('dashboard_sub')}</p>
           </div>
         </div>
         <div className="flex items-center gap-4">
@@ -990,7 +1173,7 @@ function GameDashboard({ match }: { match: Match }) {
           ) : (
             <div className="h-32 border border-dashed border-zinc-800 rounded-lg flex flex-col items-center justify-center text-zinc-600">
               <Dices className="w-6 h-6 mb-2 opacity-20" />
-              <p className="text-[10px] uppercase font-bold">Chưa tạo mission</p>
+              <p className="text-[10px] uppercase font-bold">{t('dashboard_mission')}</p>
             </div>
           )}
         </div>
@@ -1076,7 +1259,7 @@ function GameDashboard({ match }: { match: Match }) {
             </div>
           </div>
           {data.rollOff && data.rollOff.p1 === data.rollOff.p2 && (
-            <p className="text-[9px] text-orange-500 font-bold text-center uppercase">Hòa! Hãy roll lại.</p>
+            <p className="text-[9px] text-orange-500 font-bold text-center uppercase">{t('dashboard_roll_draw')}</p>
           )}
         </div>
 
@@ -1114,7 +1297,7 @@ function GameDashboard({ match }: { match: Match }) {
               <span className="text-xs font-black text-orange-500">{lastRoll}</span>
             </div>
           )}
-          <p className="text-[8px] text-zinc-600 text-center uppercase">Roll nhanh kết quả</p>
+          <p className="text-[8px] text-zinc-600 text-center uppercase">{t('dashboard_quick_roll')}</p>
         </div>
       </div>
     </Card>
@@ -1132,7 +1315,8 @@ function RevealView({
   p1Score,
   setP1Score,
   p2Score,
-  setP2Score
+  setP2Score,
+  t
 }: { 
   match: Match, 
   p1Lists: string[] | null, 
@@ -1145,6 +1329,7 @@ function RevealView({
   setP1Score: (s: number) => void,
   p2Score: number,
   setP2Score: (s: number) => void,
+  t: any,
   key?: string 
 }) {
   const [isFinishing, setIsFinishing] = useState(false);
@@ -1214,23 +1399,23 @@ function RevealView({
     <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="space-y-8">
       <div className="text-center space-y-4">
         <div className="inline-flex items-center gap-2 bg-green-500/20 text-green-500 px-4 py-1 rounded-full border border-green-500/30 text-sm font-bold uppercase tracking-widest">
-          <Eye className="w-4 h-4" /> {match.finished ? 'TRẬN ĐẤU ĐÃ KẾT THÚC' : 'ĐÃ CÔNG BỐ'}
+          <Eye className="w-4 h-4" /> {match.finished ? t('reveal_status_finished') : t('reveal_status')}
         </div>
-        <h2 className="text-3xl font-black italic uppercase tracking-tighter">Trận Đấu Bắt Đầu!</h2>
+        <h2 className="text-3xl font-black italic uppercase tracking-tighter">{t('reveal_title')}</h2>
         
         <div className="flex flex-wrap justify-center gap-4">
           <Button onClick={downloadBoth} variant="outline" className="gap-2">
-            <Copy className="w-4 h-4" /> Tải Xuống Cả Hai List (.txt)
+            <Copy className="w-4 h-4" /> {t('reveal_download')}
           </Button>
           {!match.finished && (
             <Button onClick={finishMatch} variant="primary" className="gap-2" isLoading={isFinishing}>
-              <ShieldCheck className="w-4 h-4" /> Kết Thúc Trận Đấu & Khóa Điểm
+              <ShieldCheck className="w-4 h-4" /> {t('reveal_finish_btn')}
             </Button>
           )}
         </div>
       </div>
 
-      <GameDashboard match={match} />
+      <GameDashboard match={match} t={t} />
 
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-4">
@@ -1246,6 +1431,7 @@ function RevealView({
             onScoreChange={match.finished ? undefined : setP1Score}
             isRevealed={true}
             isFinished={match.finished}
+            t={t}
           />
         </div>
         <div className="space-y-4">
@@ -1261,6 +1447,7 @@ function RevealView({
             onScoreChange={match.finished ? undefined : setP2Score}
             isRevealed={true}
             isFinished={match.finished}
+            t={t}
           />
         </div>
       </div>
@@ -1270,12 +1457,12 @@ function RevealView({
         {match.finished ? (
           <>
             <h3 className="font-bold text-lg mb-1 text-orange-500">
-              {match.p1Score! > match.p2Score! ? `Chúc mừng ${match.p1.name} đã chiến thắng!` : 
-               match.p2Score! > match.p1Score! ? `Chúc mừng ${match.p2.name} đã chiến thắng!` : 
-               "Trận đấu kết thúc với tỉ số hòa!"}
+              {match.p1Score! > match.p2Score! ? `${match.p1.name} ${t('reveal_win')}` : 
+               match.p2Score! > match.p1Score! ? `${match.p2.name} ${t('reveal_win')}` : 
+               t('reveal_draw')}
             </h3>
             <div className="flex flex-col items-center gap-2 mt-4">
-              <span className="text-zinc-500 text-[10px] uppercase font-bold tracking-widest">Tỉ số chung cuộc</span>
+              <span className="text-zinc-500 text-[10px] uppercase font-bold tracking-widest">{t('reveal_final_score')}</span>
               <div className="flex items-center gap-4 bg-zinc-950/50 border border-zinc-800 px-8 py-4 rounded-2xl shadow-inner">
                 <span className="text-5xl font-black text-white tracking-tighter tabular-nums">
                   {match.p1Score} <span className="text-orange-600 mx-1">-</span> {match.p2Score}
@@ -1283,7 +1470,7 @@ function RevealView({
                 <button 
                   onClick={copyScore}
                   className="text-orange-500 hover:text-orange-400 transition-colors p-2 bg-zinc-900 rounded-lg border border-zinc-800 hover:border-orange-600/50"
-                  title="Copy tỉ số"
+                  title="Copy"
                 >
                   {copiedScore ? <CheckCircle2 className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
                 </button>
@@ -1292,8 +1479,8 @@ function RevealView({
           </>
         ) : (
           <>
-            <h3 className="font-bold text-lg mb-1">Chúc các bạn có một trận đấu công bằng!</h3>
-            <p className="text-zinc-500 text-sm">Cảm ơn đã sử dụng Sealed List Reveal.</p>
+            <h3 className="font-bold text-lg mb-1">{t('reveal_wish_fair')}</h3>
+            <p className="text-zinc-500 text-sm">{t('reveal_thanks')}</p>
           </>
         )}
       </Card>
@@ -1312,7 +1499,8 @@ function PlayerListCard({
   score, 
   onScoreChange, 
   isRevealed,
-  isFinished 
+  isFinished,
+  t
 }: { 
   name: string, 
   lists: string[] | null, 
@@ -1324,7 +1512,8 @@ function PlayerListCard({
   score?: number,
   onScoreChange?: (score: number) => void,
   isRevealed?: boolean,
-  isFinished?: boolean
+  isFinished?: boolean,
+  t: any
 }) {
   const [copied, setCopied] = useState(false);
   const list = selectedIndex !== null ? lists?.[selectedIndex] : null;
@@ -1359,13 +1548,13 @@ function PlayerListCard({
           {submittedAt && (
             <div className="flex items-center gap-1 text-[10px] text-zinc-600 mt-0.5">
               <Clock className="w-3 h-3" />
-              <span>Nộp lúc: {formatTime(submittedAt)}</span>
+              <span>{t('card_submitted_at')}: {formatTime(submittedAt)}</span>
             </div>
           )}
         </div>
         <div className="flex items-center gap-2">
           <div className="flex flex-col items-end">
-            <span className="text-[10px] text-zinc-500 font-bold uppercase">ĐIỂM SỐ</span>
+            <span className="text-[10px] text-zinc-500 font-bold uppercase">{t('card_score')}</span>
             {isFinished ? (
               <span className="text-2xl font-black text-white">{score ?? 0}</span>
             ) : (
@@ -1394,8 +1583,8 @@ function PlayerListCard({
               <Dices className="w-8 h-8 text-orange-600" />
             </div>
             <div className="text-center w-full px-4">
-              <h4 className="font-bold text-lg mb-1">Người chơi đã nộp {lists.length} List</h4>
-              <p className="text-xs text-zinc-500 uppercase tracking-widest mb-6">Hãy chọn một list để bắt đầu</p>
+              <h4 className="font-bold text-lg mb-1">{t('card_player_submitted')} {lists.length} List</h4>
+              <p className="text-xs text-zinc-500 uppercase tracking-widest mb-6">{t('card_choose_list')}</p>
               
               <div className="grid gap-2 mb-6 max-w-[280px] mx-auto">
                 {lists.map((_, idx) => (
@@ -1412,36 +1601,36 @@ function PlayerListCard({
 
               <div className="flex items-center gap-3">
                 <div className="h-px bg-zinc-800 flex-1" />
-                <span className="text-[10px] text-zinc-600 font-bold">HOẶC</span>
+                <span className="text-[10px] text-zinc-600 font-bold">{t('card_or')}</span>
                 <div className="h-px bg-zinc-800 flex-1" />
               </div>
 
               <Button onClick={onRandomize} variant="outline" className="w-full mt-4 border-zinc-800 hover:bg-zinc-800">
-                <RotateCcw className="w-4 h-4" /> CHỌN NGẪU NHIÊN
+                <RotateCcw className="w-4 h-4" /> {t('card_random')}
               </Button>
             </div>
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center h-40 text-zinc-600">
             <Loader2 className="w-6 h-6 animate-spin mb-2" />
-            <span className="text-xs">Đang tải nội dung...</span>
+            <span className="text-xs">{t('card_loading_content')}</span>
           </div>
         )}
       </div>
 
       {selectedIndex !== null && lists && lists.length > 1 && (
         <div className="mt-4 pt-4 border-t border-zinc-800 flex items-center justify-between">
-          <span className="text-[10px] text-zinc-500 font-bold uppercase">Đã chọn List #{selectedIndex + 1} / {lists.length}</span>
+          <span className="text-[10px] text-zinc-500 font-bold uppercase">{t('card_selected_list')} #{selectedIndex + 1} / {lists.length}</span>
           {!isFinished && !isRevealed && (
             <div className="flex items-center gap-3">
               <button 
                 onClick={() => onSelectIndex((selectedIndex + 1) % lists.length)} 
                 className="text-[10px] text-zinc-500 hover:text-zinc-300 font-bold uppercase"
               >
-                Đổi List
+                {t('card_change_list')}
               </button>
               <button onClick={onRandomize} className="text-[10px] text-orange-500 hover:text-orange-400 font-bold uppercase flex items-center gap-1">
-                <RotateCcw className="w-3 h-3" /> RANDOM LẠI
+                <RotateCcw className="w-3 h-3" /> {t('card_random')}
               </button>
             </div>
           )}
